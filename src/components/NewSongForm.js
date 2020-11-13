@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-const NewSongForm = () =>{
+const NewSongForm = ({ addSong }) =>{
     const [title, setTitle] = useState('');
     const handleSubmit = (e) => {
         //Prevents refreshing page when click submit
         e.preventDefault();
-        console.log(title)
-    }
+        addSong(title)
+        setTitle(''
+        )}
     return(
     <form onSubmit={handleSubmit}>
         <label>Song Name:</label>

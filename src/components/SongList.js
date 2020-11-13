@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { v1 as uuidv1 } from 'uuid'
 import NewSongForm from './NewSongForm';
 
@@ -9,9 +9,20 @@ const SongList= () => {
         { title: 'Slide Away', id: 2},
         { title: 'Your Song', id: 3}
     ]);
-    const addSong = () => {
-        setSongs([...songs, { title: 'Jailhouse Rock', id: uuidv1()}]);
+    const [age, setAge] =useState(20)
+    const addSong = (title) => {
+        setSongs([...songs, { title, id: uuidv1()}]);
     }
+    //USes a callback function, anytime the data changes, e.g. Database
+    useEffect(() => {
+        console.log('useEffect Hook Ran', songs);
+
+    }, [songs])
+
+    useEffect(() => {
+        console.log('useEffect Hook Ran', age);
+
+    }, [age])
     return (
         <div className="song-list">
             <ul>
@@ -19,7 +30,8 @@ const SongList= () => {
                   return ( <li key={song.id}>{song.title}</li>)
               })}
             </ul>
-            <NewSongForm />
+            <NewSongForm addSong={addSong}/>
+            <button onClick={() => setAge(age + 1)}> Add 1 to age: {age} </button>
         </div>
     )
 }
